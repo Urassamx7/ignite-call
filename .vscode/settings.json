@@ -1,6 +1,9 @@
 {
 	"postman.settings.dotenv-detection-notification-visibility": false,
 
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+
 	"editor.defaultFormatter": "biomejs.biome",
 
 	"prettier.enable": false,

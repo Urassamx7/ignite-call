@@ -19,7 +19,10 @@
 			}
 		],
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./src/*"],
+			"@stitches/react/types/*": [
+				"./node_modules/@stitches/react/types/*"
+			]
 		}
 	},
 	"include": [

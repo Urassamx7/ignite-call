@@ -1,11 +1,5 @@
-'use client'
-
-import { Heading } from '@urassamx7/react'
+import { HomeView } from '@/modules/home/ui/views/home-view'
 
 export default function Home() {
-	return (
-		<div>
-			<Heading as='h1'>Hello world</Heading>
-		</div>
-	)
+	return <HomeView />
 }

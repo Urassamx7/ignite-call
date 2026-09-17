@@ -1,6 +1,6 @@
 'use client'
 
-import { getCssText } from '@urassamx7/react'
+import { getCssText } from '@ignite-ui/react'
 import { globalStyles } from './styles/global'
 
 interface ProviderProps {
