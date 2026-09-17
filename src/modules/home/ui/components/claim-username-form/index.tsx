@@ -4,15 +4,15 @@ import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { TextInput } from '@/components/text-input'
+import { TextInput } from '@/app/components/text-input'
 import { Form, FormAnnotation } from './styles'
 
 const claimUsernameSchema = z.object({
 	username: z
 		.string('O nome de usuário é obrigatório')
 		.min(3, 'O nome deve ter pelomenos 3 caracteres')
-		.regex(/^([a-z\\-]+)$/i, {
-			message: 'O usuário pode ter apenas letras e hífens',
+		.regex(/^([a-z0-9\\-]+)$/i, {
+			message: 'O usuário pode ter apenas letras, números e hífens',
 		})
 		.transform((username) => username.toLocaleLowerCase()),
 })

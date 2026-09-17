@@ -2,19 +2,21 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
+import { AxiosError } from 'axios'
 import { ArrowRight } from 'phosphor-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { TextInput } from '@/components/text-input'
+import { TextInput } from '@/app/components/text-input'
+import { api } from '@/lib/axios'
 import { Container, Form, FormError, Header } from '../styles/styles'
 
-const registerSchema = z.object({
+export const registerSchema = z.object({
 	username: z
 		.string('O nome de usuário é obrigatório')
 		.min(3, 'O nome deve ter pelomenos 3 caracteres')
-		.regex(/^([a-z\\-]+)$/i, {
-			message: 'O usuário pode ter apenas letras e hífens',
+		.regex(/^([a-z0-9\\-]+)$/i, {
+			message: 'O usuário pode ter apenas letras, números e hífens',
 		})
 		.transform((username) => username.toLocaleLowerCase()),
 	name: z.string().min(3, 'O nome deve ter pelomenos 3 caracteres'),
@@ -43,7 +45,17 @@ export const RegisterView = ({ username }: { username?: string }) => {
 	}, [username, setValue])
 
 	async function onSubmit(data: RegisterData) {
-		console.log(data)
+		try {
+			await api.post('/users', {
+				name: data.name,
+				username: data.username,
+			})
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				alert(error.response?.data.message)
+			}
+			console.error(error)
+		}
 	}
 
 	return (

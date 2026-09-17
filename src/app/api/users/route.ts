@@ -1,0 +1,35 @@
+import { cookies } from 'next/headers'
+import { prisma } from '@/lib/prisma'
+
+export async function POST(request: Request) {
+	const { name, username } = await request.json()
+
+	const userExists = await prisma.user.findUnique({
+		where: {
+			username,
+		},
+	})
+
+	if (userExists) {
+		return Response.json(
+			{ message: 'Nome de usuário já foi utilizado.' },
+			{ status: 400 }
+		)
+	}
+
+	const user = await prisma.user.create({
+		data: {
+			name,
+			username,
+		},
+	})
+
+	const cookieStore = await cookies()
+
+	cookieStore.set('@ignitecall:userId', user.id, {
+		maxAge: 60 * 60 * 24 * 7, // 7 days
+		path: '/',
+	})
+
+	return Response.json(user, { status: 201 })
+}

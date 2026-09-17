@@ -7,7 +7,10 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "biome check",
-		"format": "biome format --write"
+		"format": "biome format --write",
+		"db:migrate:dev": "pnpm prisma migrate dev --create-only",
+		"db:deploy": "pnpm migrate deploy",
+		"db:studio": "pnpm prisma studio"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.9.1",
@@ -15,6 +18,7 @@
 		"@prisma/adapter-pg": "^7.10.0",
 		"@prisma/client": "^7.10.0",
 		"@stitches/react": "1.2.8",
+		"axios": "^1.20.0",
 		"next": "16.3.4",
 		"pg": "^8.23.0",
 		"phosphor-react": "^1.4.1",
