@@ -1,17 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, TextInput as IgniteTextInput, Text } from '@ignite-ui/react'
+import { Button, Text } from '@ignite-ui/react'
 import { ArrowRight } from 'phosphor-react'
-import type { ComponentProps, ForwardRefExoticComponent } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { TextInput } from '@/components/text-input'
 import { Form, FormAnnotation } from './styles'
-
-type TextInputProps = Omit<ComponentProps<'input'>, 'prefix' | 'size'> & {
-	prefix?: string
-	size?: 'sm' | 'md'
-}
-
-const TextInput = IgniteTextInput as ForwardRefExoticComponent<TextInputProps>
 
 const claimUsernameSchema = z.object({
 	username: z
