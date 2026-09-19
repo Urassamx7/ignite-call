@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { AxiosError } from 'axios'
+import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,6 +26,7 @@ export const registerSchema = z.object({
 type RegisterData = z.infer<typeof registerSchema>
 
 export const RegisterView = ({ username }: { username?: string }) => {
+	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
@@ -50,6 +52,8 @@ export const RegisterView = ({ username }: { username?: string }) => {
 				name: data.name,
 				username: data.username,
 			})
+
+			router.push('/register/connect-calendar')
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				alert(error.response?.data.message)

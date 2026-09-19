@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Roboto } from 'next/font/google'
 import './globals.css'
-import { getCssText } from '@ignite-ui/react'
 import { Providers } from './providers'
 
 export const metadata: Metadata = {

@@ -1,6 +1,7 @@
 'use client'
 
 import { getCssText } from '@ignite-ui/react'
+import { SessionProvider } from 'next-auth/react'
 import { globalStyles } from './styles/global'
 
 interface ProviderProps {
@@ -18,7 +19,9 @@ export const Providers = ({ children }: ProviderProps) => {
 				dangerouslySetInnerHTML={{ __html: getCssText() }}
 				suppressHydrationWarning
 			/>
-			<div className='max-w-8xl'>{children}</div>
+			<SessionProvider>
+				<div className='max-w-8xl'>{children}</div>
+			</SessionProvider>
 		</>
 	)
 }
