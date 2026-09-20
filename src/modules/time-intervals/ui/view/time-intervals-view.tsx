@@ -1,6 +1,5 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Checkbox, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { ArrowRight } from 'phosphor-react'
 import { useFieldArray, useForm } from 'react-hook-form'
@@ -9,11 +8,11 @@ import { TextInput } from '@/app/components/text-input'
 import { Container, Header } from '@/modules/register/ui/styles/styles'
 import { getWeekDays } from '@/utils/get-week-days'
 import {
-	IntervalBox,
-	IntervalDay,
-	IntervalInputs,
-	IntervalItem,
-	IntervalsContainer,
+    IntervalBox,
+    IntervalDay,
+    IntervalInputs,
+    IntervalItem,
+    IntervalsContainer,
 } from '../styles'
 
 const timeIntervalsFormSchema = z.object({})
