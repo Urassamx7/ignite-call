@@ -7,14 +7,81 @@ datasource db {
 }
 
 model User {
-    id String @id @default(uuid())
+    id       String @id @default(uuid()) @map("id")
+    name     String @map("name")
+    username String @unique @map("username")
 
-    name     String
-    username String @unique
+    email     String  @unique @map("email")
+    avatarUrl String? @map("avatar_url")
 
-    createdAt DateTime  @default(now()) @db.Timestamptz(3)
-    updatedAt DateTime? @default(now()) @db.Timestamptz(3)
-    deletedAt DateTime? @db.Timestamptz(3)
+    createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+    deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+
+    accounts      Account[]
+    sessions      Session[]
+    Authenticator Authenticator[]
 
     @@map("users")
+}
+
+model Account {
+    userId            String  @map("user_id")
+    type              String  @map("type")
+    provider          String  @map("provider")
+    providerAccountId String  @map("provider_account_id")
+    refreshToken      String? @map("refresh_token")
+    accessToken       String? @map("access_token")
+    expiresAt         Int?    @map("expires_at")
+    tokenType         String? @map("token_type")
+    scope             String? @map("scope")
+    idToken           String? @map("id_token")
+    sessionState      String? @map("session_state")
+
+    createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+    deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@id([provider, providerAccountId])
+    @@map("accounts")
+}
+
+model Session {
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+
+    createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
+}
+
+model VerificationToken {
+    identifier String
+    token      String
+    expires    DateTime
+
+    @@id([identifier, token])
+    @@map("verfication_tokens")
+}
+
+model Authenticator {
+    credentialID         String  @unique
+    userId               String
+    providerAccountId    String
+    credentialPublicKey  String
+    counter              Int
+    credentialDeviceType String
+    credentialBackedUp   Boolean
+    transports           String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@id([userId, credentialID])
+    @@map("authenticators")
 }
