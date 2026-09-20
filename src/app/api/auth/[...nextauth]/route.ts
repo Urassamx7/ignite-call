@@ -36,6 +36,13 @@ const handler: NextAuthOptions = NextAuth({
 			}
 			return true
 		},
+
+		async session({ session, user }) {
+			return {
+				...session,
+				user,
+			}
+		},
 	},
 })
 
