@@ -45,7 +45,7 @@ export const UpdateProfileView = ({ session }: UpdateProfileViewProps) => {
 
 		try {
 			await api.put('/users/profile', { bio })
-			router.push(`/schedule/${session?.user.id}`)
+			router.push(`/schedule/${session?.user.username}`)
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				alert(error.response?.data.message)
