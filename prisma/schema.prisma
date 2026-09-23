@@ -21,6 +21,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     Authenticator Authenticator[]
+    timeIntervals UserTimeInterval[]
 
     @@map("users")
 }
@@ -84,4 +85,16 @@ model Authenticator {
 
     @@id([userId, credentialID])
     @@map("authenticators")
+}
+
+model UserTimeInterval {
+    id                 String @id @default(uuid())
+    weekDay            Int    @map("week_day")
+    timeStartInMinutes Int    @map("time_start_in_minutes")
+    timeEndInMinutes   Int    @map("time_end_in_minutes")
+
+    userId String @map("user_id")
+    user   User   @relation(fields: [userId], references: [id])
+
+    @@map("user_time_intervals")
 }

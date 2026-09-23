@@ -2,10 +2,12 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Checkbox, Heading, MultiStep, Text } from '@ignite-ui/react'
+import { AxiosError } from 'axios'
 import { ArrowRight } from 'phosphor-react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { TextInput } from '@/app/components/text-input'
+import { api } from '@/lib/axios'
 import { Container, Header } from '@/modules/register/ui/styles/styles'
 import { convertTimeToMinutes } from '@/utils/convert-time-string-to-minutes'
 import { getWeekDays } from '@/utils/get-week-days'
@@ -126,8 +128,16 @@ export const TimeIntervalsView = () => {
 	const intervals = watch('intervals')
 
 	async function handleSetTimeIntervals(data: any) {
-		const formData = data as TimeIntervalsOutput
-		console.log(formData)
+		const { intervals } = data as TimeIntervalsOutput
+
+		try {
+			await api.post('/users/time-intervals', { intervals })
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				alert(error.response?.data.message)
+			}
+			console.error(error)
+		}
 	}
 
 	return (

@@ -1,8 +1,8 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth'
-import Google, { GoogleProfile } from 'next-auth/providers/google'
+import Google, { type GoogleProfile } from 'next-auth/providers/google'
 import { PrismaAdapter } from '@/lib/auth/prisma-adapter'
 
-const handler: NextAuthOptions = NextAuth({
+export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(),
 	providers: [
 		Google({
@@ -44,6 +44,8 @@ const handler: NextAuthOptions = NextAuth({
 			}
 		},
 	},
-})
+}
+
+const handler: NextAuthOptions = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
