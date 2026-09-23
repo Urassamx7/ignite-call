@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
+import { useRouter } from 'next/navigation'
 import { signIn, useSession } from 'next-auth/react'
 import { ArrowRight, Check } from 'phosphor-react'
 import { Container, Header } from '@/modules/register/ui/styles/styles'
@@ -8,11 +9,16 @@ import { AuthError, ConnectBox, ConnectItem } from '../styles/styles'
 
 export const ConnectCalendarView = ({ hasError }: { hasError?: boolean }) => {
 	const session = useSession()
+	const router = useRouter()
 	async function handleConnectCalendar() {
 		await signIn('google')
 	}
 
 	const isSignedIn = session.status === 'authenticated'
+
+	function handleNavigateToNextStep() {
+		router.push('/register/time-intervals')
+	}
 
 	return (
 		<Container>
@@ -49,7 +55,11 @@ export const ConnectCalendarView = ({ hasError }: { hasError?: boolean }) => {
 						permissões de acesso ao Google Calendar.
 					</AuthError>
 				)}
-				<Button type='submit' disabled={hasError || !isSignedIn}>
+				<Button
+					type='submit'
+					disabled={hasError || !isSignedIn}
+					onClick={handleNavigateToNextStep}
+				>
 					Próximo passo <ArrowRight />
 				</Button>
 			</ConnectBox>

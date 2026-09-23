@@ -33,7 +33,6 @@ export async function POST(request: Request) {
 
 	const body = await request.json()
 	const { intervals } = timeIntervals.parse(body)
-	console.log(intervals)
 
 	await Promise.all(
 		intervals.map((interval) => {

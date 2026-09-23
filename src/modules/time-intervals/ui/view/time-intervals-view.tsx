@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Checkbox, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { AxiosError } from 'axios'
+import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -62,6 +63,7 @@ const timeIntervalsFormSchema = z.object({
 type TimeIntervalsOutput = z.output<typeof timeIntervalsFormSchema>
 
 export const TimeIntervalsView = () => {
+	const router = useRouter()
 	const {
 		control,
 		register,
@@ -132,6 +134,7 @@ export const TimeIntervalsView = () => {
 
 		try {
 			await api.post('/users/time-intervals', { intervals })
+			router.push('/register/update-profile')
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				alert(error.response?.data.message)
