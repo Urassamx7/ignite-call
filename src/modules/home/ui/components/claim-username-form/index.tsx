@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { TextInput } from '@/app/components/text-input'
+import { TextInput } from '@/components/text-input'
 import { Form, FormAnnotation } from './styles'
 
 const claimUsernameSchema = z.object({

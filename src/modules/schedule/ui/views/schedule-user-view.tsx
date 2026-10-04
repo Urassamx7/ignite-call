@@ -1,6 +1,7 @@
 'use client'
 
 import { Avatar, Heading, Text } from '@ignite-ui/react'
+import { ScheduleForm } from '../components/schedule-form'
 import { Container, UserHeader } from '../styles'
 
 interface ScheduleUserProps {
@@ -23,6 +24,7 @@ export const ScheduleUserView = ({ user }: ScheduleUserProps) => {
 				<Heading>{user.name}</Heading>
 				<Text>{user.bio}</Text>
 			</UserHeader>
+			<ScheduleForm />
 		</Container>
 	)
 }

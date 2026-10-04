@@ -8,7 +8,7 @@ import { ArrowRight } from 'phosphor-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { TextInput } from '@/app/components/text-input'
+import { TextInput } from '@/components/text-input'
 import { api } from '@/lib/axios'
 import { Container, Form, FormError, Header } from '../styles/styles'
 
