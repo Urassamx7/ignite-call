@@ -51,6 +51,7 @@ export const CalendarActions = styled('div', {
 export const CalendarBody = styled('table', {
 	width: '100%',
 	fontFamily: '$default',
+	borderCollapse: 'separate',
 	borderSpacing: '0.25rem',
 	tableLayout: 'fixed',
 
