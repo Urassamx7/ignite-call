@@ -1,8 +1,12 @@
 'use client'
 
 import { getCssText } from '@ignite-ui/react'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 import { SessionProvider } from 'next-auth/react'
 import { globalStyles } from './styles/global'
+
+dayjs.locale('pt-br')
 
 interface ProviderProps {
 	children: React.ReactNode
