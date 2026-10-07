@@ -9,6 +9,7 @@ interface ScheduleUserProps {
 		name: string
 		bio: string | null
 		avatarUrl: string | null
+		username: string
 	}
 }
 
@@ -24,7 +25,7 @@ export const ScheduleUserView = ({ user }: ScheduleUserProps) => {
 				<Heading>{user.name}</Heading>
 				<Text>{user.bio}</Text>
 			</UserHeader>
-			<ScheduleForm />
+			<ScheduleForm username={user.username} />
 		</Container>
 	)
 }

@@ -34,7 +34,7 @@ export async function GET(req: NextRequest, { params }: Props) {
 	const isPastDate = referenceDate.endOf('day').isBefore(new Date())
 
 	if (isPastDate) {
-		return httpResponse({ availability: [] })
+		return httpResponse({ possibleTimes: [], availableTimes: [] })
 	}
 
 	// Time interval
@@ -45,7 +45,9 @@ export async function GET(req: NextRequest, { params }: Props) {
 		},
 	})
 
-	if (!userAvailabilty) return httpResponse({ availability: [] })
+	if (!userAvailabilty) {
+		return httpResponse({ possibleTimes: [], availableTimes: [] })
+	}
 
 	const { timeStartInMinutes, timeEndInMinutes } = userAvailabilty
 
@@ -57,5 +59,23 @@ export async function GET(req: NextRequest, { params }: Props) {
 			return startHour + index
 		}
 	)
-	return httpResponse({ possibleTimes })
+
+	const blockedTimes = await prisma.scheduling.findMany({
+		select: { date: true },
+		where: {
+			userId: user.id,
+			date: {
+				gte: referenceDate.set('hour', startHour).toDate(),
+				lte: referenceDate.set('hour', EndHour).toDate(),
+			},
+		},
+	})
+
+	const availableTimes = possibleTimes.filter((time) => {
+		return !blockedTimes.some(
+			(blockedTime) => blockedTime.date.getHours() === time
+		)
+	})
+
+	return httpResponse({ possibleTimes, availableTimes })
 }

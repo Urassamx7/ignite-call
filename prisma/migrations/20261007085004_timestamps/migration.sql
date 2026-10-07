@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "schedulings" ALTER COLUMN "date" SET DATA TYPE TIMESTAMPTZ(3);

@@ -17,6 +17,7 @@ export default async function Page({ params }: PageProps) {
 			name: true,
 			bio: true,
 			avatarUrl: true,
+			username: true,
 		},
 	})
 

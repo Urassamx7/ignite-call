@@ -103,7 +103,7 @@ model UserTimeInterval {
 
 model Scheduling {
     id           String   @id @default(uuid())
-    date         DateTime @map("date")
+    date         DateTime @map("date") @db.Timestamptz(3)
     name         String   @map("name")
     email        String   @map("email")
     observations String?  @map("observations")
