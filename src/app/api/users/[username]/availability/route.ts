@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { httpResponse } from '@/utils/http-response'
 
 interface Props {
-	params: Promise<{ username: string; date: string }>
+	params: Promise<{ username: string }>
 }
 
 export async function GET(req: NextRequest, { params }: Props) {

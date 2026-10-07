@@ -62,6 +62,7 @@ export const CalendarStep = ({ username }: { username: string }) => {
 			<Calendar
 				onDateSelected={setSelectedDate}
 				selectedDate={selectedDate}
+				username={username}
 			/>
 			{hasSelectedDate && (
 				<TimePicker>
