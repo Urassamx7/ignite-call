@@ -3,7 +3,9 @@
 import { getCssText } from '@ignite-ui/react'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
+import { queryClient } from '@/lib/query-client'
 import { globalStyles } from './styles/global'
 
 dayjs.locale('pt-br')
@@ -24,7 +26,9 @@ export const Providers = ({ children }: ProviderProps) => {
 				suppressHydrationWarning
 			/>
 			<SessionProvider>
-				<div className='max-w-8xl'>{children}</div>
+				<QueryClientProvider client={queryClient}>
+					<div className='max-w-8xl'>{children}</div>
+				</QueryClientProvider>
 			</SessionProvider>
 		</>
 	)
